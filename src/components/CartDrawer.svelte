@@ -53,7 +53,7 @@
     <div
       in:fade={{ duration: 500 }}
       out:fade={{ duration: 500 }}
-      class="fixed inset-0 bg-slate-400/50 backdrop-blur-sm transition-opacity"
+      class="absolute inset-0 bg-slate-400/50 backdrop-blur-sm transition-opacity"
 ></div>
 
     <div class="fixed inset-0 overflow-hidden">
