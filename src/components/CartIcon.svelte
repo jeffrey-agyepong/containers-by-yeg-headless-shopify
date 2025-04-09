@@ -19,7 +19,7 @@
       fill="none"
       viewBox="0 0 24 24"
       stroke-width="1.5"
-      stroke="currentColor"
+      stroke="#fff"
       class="w-7 h-7 sm:w-8 sm:h-8 pointer-events-none"
     >
       <path
