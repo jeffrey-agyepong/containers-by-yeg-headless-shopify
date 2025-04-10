@@ -9,13 +9,101 @@ export interface Props {
 }
 const { products } = Astro.props as Props;
 ---
-
-<section>
+<section id="collection-1570">
   <div class="container py-16 sm:py-20">
-    <h2 class="sr-only">Products</h2>
-
-    <div class="grid gap-12 md:grid-cols-2 lg:grid-cols-3">
-      {products.map((product) => <ProductCard product={product} />)}
+    <div class="cs-container">
+      <div class="cs-content">
+          <h2 class="cs-title">Popular Products</h2>
+          <a href="" class="cs-button-solid">View All Collection</a>
+      </div>
+    <div class="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
+      {products.slice(0,4).map((product) => <ProductCard product={product} />)}
     </div>
   </div>
+  </div>
 </section>
+
+<style>
+  /*-- -------------------------- -->
+  <---        Collection          -->
+  <--- -------------------------- -*/
+  
+  /* Mobile - 360px */
+  @media only screen and (min-width: 0rem) {
+      #collection-1570 {
+          padding: var(--sectionPadding);
+      }
+      #collection-1570 .cs-container {
+          width: 100%;
+          max-width: 80rem;
+          margin: auto;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          /* 48px - 64px */
+          gap: clamp(3rem, 6vw, 4rem);
+          position: relative;
+          z-index: 1;
+      }
+      #collection-1570 .cs-content {
+          /* set text align to left if content needs to be left aligned */
+          text-align: center;
+          width: 100%;
+          /* breaks up the parent div so the children are no longer bound by it.  Now the children can be children of the cs-container and allow us to arrnage their order with the cs-card-group */
+          display: contents;
+          flex-direction: column;
+          /* centers content horizontally, set to flex-start to left align */
+          align-items: center;
+      }
+      #collection-1570 .cs-title {
+          margin: 0;
+      }
+      #collection-1570 .cs-button-solid {
+          font-size: 1rem;
+          /* 46px - 56px */
+          line-height: clamp(2.875rem, 5.5vw, 3.5rem);
+          text-decoration: none;
+          font-weight: 700;
+          text-align: center;
+          margin: 0;
+          color: #fff;
+          min-width: 9.375rem;
+          padding: 0 1.5rem;
+          background-color: var(--primary);
+          display: inline-block;
+          position: relative;
+          z-index: 1;
+          /* prevents padding from adding to the width */
+          box-sizing: border-box;
+          order: 3;
+      }
+      #collection-1570 .cs-button-solid:before {
+          content: '';
+          position: absolute;
+          height: 100%;
+          width: 0%;
+          background: #000;
+          opacity: 1;
+          top: 0;
+          left: 0;
+          z-index: -1;
+          transition: width .3s;
+      }
+      #collection-1570 .cs-button-solid:hover:before {
+          width: 100%;
+      }
+     
+  }
+  /* Tablet - 768px */
+  @media only screen and (min-width: 48rem) {
+      #collection-1570 .cs-content {
+          display: flex;
+          justify-content: space-between;
+          flex-direction: row;
+          gap: 3rem;
+      }
+
+  }
+
+                                      
+  </style> 

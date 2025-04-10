@@ -3,10 +3,13 @@ import { getProducts } from "./../utils/shopify";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Products from "../components/Products.astro";
 import { setCache } from "../utils/cache";
+import About from "../components/home/About.astro";
 import Hero from "../components/home/Hero.astro";
 import FeaturedProducts from "../components/home/FeaturedProducts.astro";
+import Collections from "../components/home/Collections.astro";
+import PromotionCTA from "../components/home/PromotionCTA.astro";
 
-const title = "Astro + Shopify";
+const title = "Containers By Yeg | Edmonton Food Packaging & Containers";
 const headers = Astro.request.headers;
 const ip = headers.get("x-vercel-forwarded-for") || Astro.clientAddress;
 const products = await getProducts({ buyerIP: ip });
@@ -16,6 +19,9 @@ setCache.short(Astro);
 
 <BaseLayout title={title}>
   <Hero />
-  <FeaturedProducts/>
+  <About/>
+  <Collections />
+  <!-- <FeaturedProducts/> -->
   <Products products={products} />
+  <PromotionCTA />
 </BaseLayout>
