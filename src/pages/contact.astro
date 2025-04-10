@@ -1,4 +1,5 @@
 ---
+import ContactForm from "../components/contact/ContactForm.astro";
 import PageBanner from "../components/PageBanner.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 
@@ -8,4 +9,5 @@ const breadcrumb = "Contact Us";
 
 <BaseLayout title={title}>
 <PageBanner breadcrumb={breadcrumb}/>
+<ContactForm/>
 </BaseLayout>
