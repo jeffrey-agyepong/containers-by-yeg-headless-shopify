@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { CartResult, ProductResult } from "./schemas";
+import { CartResult, ProductResult, CollectionResult, CollectionWithProductsResult } from "./schemas";
 import { config } from "./config";
 import {
   ProductsQuery,
@@ -181,3 +181,78 @@ export const getCart = async (id: string) => {
 
   return parsedCart;
 };
+
+export const getCollections = async (options: {
+  limit?: number;
+  buyerIP: string;
+}) => {
+  const { limit = 10, buyerIP } = options;
+
+  const query = `
+    query GetCollections($first: Int!) {
+      collections(first: $first) {
+        edges {
+          node {
+            handle
+            title
+          }
+        }
+      }
+    }
+  `;
+
+  const data = await makeShopifyRequest(query, { first: limit }, buyerIP);
+  const { collections } = data;
+
+  if (!collections) {
+    throw new Error("No collections found");
+  }
+
+  const collectionsList = collections.edges.map((edge: any) => edge.node);
+  const CollectionsResult = z.array(CollectionResult);
+  const parsedCollections = CollectionsResult.parse(collectionsList);
+
+  return parsedCollections;
+};
+
+// Get a single collection by its handle and return its info and up to 10 products
+export const getCollectionByHandle = async (options: {
+  handle: string;
+  buyerIP: string;
+}) => {
+  const { handle, buyerIP } = options;
+  
+  if (!handle || typeof handle !== "string" || handle.trim() === "") {
+    throw new Error("Invalid handle provided to getCollectionByHandle");
+  }
+
+  const query = `
+    query CollectionByHandle($handle: String!) {
+      collectionByHandle(handle: $handle) {
+        id
+        title
+        description
+        products(first: 10) {
+          edges {
+            node {
+              id
+              title
+              handle
+            }
+          }
+        }
+      }
+    }
+  `;
+
+  const data = await makeShopifyRequest(query, { handle }, buyerIP);
+  const { collectionByHandle } = data;
+
+  if (!collectionByHandle) {
+    throw new Error(`Collection not found for handle: ${handle}`);
+  }
+
+  const parsedCollection = CollectionWithProductsResult.parse(collectionByHandle);
+
+  return parsedCollection;
+}

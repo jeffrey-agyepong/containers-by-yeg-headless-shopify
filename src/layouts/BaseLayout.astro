@@ -4,6 +4,10 @@ import Footer from "../components/Footer.astro";
 import CartDrawer from "../components/CartDrawer.svelte";
 import AnnouncementBar from "../components/AnnouncementBar.astro";
 
+import { getAllCollections } from '../utils/shopify';
+
+const collections = await getAllCollections();
+
 export interface Props {
   title: string;
   description?: string;
@@ -30,7 +34,7 @@ const { title, description = defaultDesc } = Astro.props as Props;
   <body>
     <!-- <AnnouncementBar /> -->
     <CartDrawer client:idle />
-    <Header />
+    <Header collections={collections}/>
     <main>
       <slot />
     </main>

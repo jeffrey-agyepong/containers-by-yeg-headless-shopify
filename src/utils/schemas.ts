@@ -76,3 +76,29 @@ export const ProductResult = z
     featuredImage: ImageResult.nullable(),
   })
   .nullable();
+
+
+  export const ProductLite = z.object({
+    id: z.string(),
+    title: z.string(),
+    handle: z.string(),
+  });
+
+  
+  export const CollectionResult = z.object({
+    handle: z.string(),
+    title: z.string(),
+  });
+  
+  export const CollectionWithProductsResult = z.object({
+    id: z.string(),
+    title: z.string(),
+    description: z.string(),
+    products: z.object({
+      edges: z.array(
+        z.object({
+          node: ProductLite,
+        })
+      ),
+    }),
+  });

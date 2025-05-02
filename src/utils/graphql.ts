@@ -166,3 +166,23 @@ export const RemoveCartLinesMutation = `#graphql
   }
   ${CART_FRAGMENT}
 `;
+
+export const GET_COLLECTIONS =`
+   query GetCollections($first: Int!) {
+    collections(first: $first) {
+      edges {
+        node {
+          id
+          handle
+          title
+          description
+          image {
+            url
+            width
+            height
+            altText
+          }
+        }
+      }
+    }
+`;

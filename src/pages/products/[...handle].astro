@@ -32,7 +32,7 @@ setCache.short(Astro);
     <NotFoundLayout title="Product not found" message="Product not found" />
   ) : (
     <BaseLayout title={product.title}>
-      <div class="container pt-6">
+      <div class="container pt-6 mt-24">
         <ProductBreadcrumb title={product.title} />
       </div>
 
@@ -64,9 +64,9 @@ setCache.short(Astro);
         </div>
       </section>
 
-      <section class="container">
+      {/* <section class="container">
         <ProductReviews />
-      </section>
+      </section> */}
 
       <section class="container">
         <ProductRecommendations productId={product.id} buyerIP={ip} />
